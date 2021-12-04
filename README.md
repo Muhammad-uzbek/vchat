@@ -1,11 +1,8 @@
 # WebRTC Meet the Strangers
  Omegle clone with direct calls possibility with vanilla JavaScript
 
- ### Author: Timothy Lam 
-\
-Link - http://localhost:3000
 
-Link - https://webrtcmeetthestranger.herokuapp.com/
+Link - https://meet-new-strangers.herokuapp.com/
 
 ## Installation Nodejs
 
@@ -37,11 +34,7 @@ npm install
 npm start
 ```
 
-## WebRTC Architecture
-![WebRTC Architecture](img/WebRTC-Architecture.png)
 
-## WebRTC Meet the Strangers
-![WebRTC Meet the Strangers](img/WebRTC-meet-the-strangers.jpg)
 \
 \
 \
