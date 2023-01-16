@@ -6,7 +6,7 @@ let state = {
   remoteStream: null,
   screenSharingActive: false,
   screenSharingStream: null,
-  allowConnectionsFromStrangers: false,
+  allowConnectionsFromStrangers: true,
   callState: constants.callState.CALL_AVAILABLE_ONLY_CHAT,
 };
 
