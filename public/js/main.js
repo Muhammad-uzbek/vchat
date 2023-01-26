@@ -65,6 +65,9 @@ strangerVideoButton.addEventListener("click", () => {
   strangerUtils.getStrangerSocketIdAndConnect(constants.callType.VIDEO_STRANGER);
 });
 
+// make it allow to connect from strangers by default
+strangerUtils.changeStrangerConnectionStatus(true);
+
 // register event for allow connections from strangers
 const checkbox = document.getElementById("allow_strangers_checkbox");
 checkbox.addEventListener("click", () => {
@@ -73,6 +76,7 @@ checkbox.addEventListener("click", () => {
   store.setAllowConnectionsFromStrangers(!checkboxState);
   strangerUtils.changeStrangerConnectionStatus(!checkboxState);
 });
+
 
 // event listeners for video call buttons
 

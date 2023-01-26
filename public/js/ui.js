@@ -65,8 +65,8 @@ export const showCallingDialog = (rejectCallHandler) => {
 
 export const showNoStrangerAvailableDiolog = () => {
   const infoDialog = elements.getInfoDialog(
-    "No Stranger available", 
-    "Please try again later"
+    "Suhbatdosh topilmadi", 
+    "Keyinroq urunib ko'ring."
   );
 
   if (infoDialog) {
@@ -84,22 +84,22 @@ export const showInfoDialog = (preOfferAnswer) => {
 
   if (preOfferAnswer === constants.preOfferAnswer.CALL_REJECTED) {
     infoDialog = elements.getInfoDialog(
-      "Call rejected",
-      "Callee rejected your call"
+      "Suhbatdosh rad etdi",
+      "Rad etildi"
     );
   }
 
   if (preOfferAnswer === constants.preOfferAnswer.CALLEE_NOT_FOUND) {
     infoDialog = elements.getInfoDialog(
-      "Callee not found",
-      "Please check personal code"
+      "Suhbatdosh topilmadi",
+      "Qayta urinib ko'ring"
     );
   }
 
   if (preOfferAnswer === constants.preOfferAnswer.CALL_UNAVAILABLE) {
     infoDialog = elements.getInfoDialog(
-      "Call is not possible",
-      "Probably callee is busy. Please try againg later"
+      "Opps",
+      "Qayta urinib ko'ring"
     );
   }
 

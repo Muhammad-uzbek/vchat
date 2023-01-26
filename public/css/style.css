@@ -45,7 +45,7 @@ body {
   height: 100%;
   background: black;
   display: flex;
-  background-filter: blur(80px);
+  backdrop-filter: blur(80px);
   flex-direction: column;
   justify-content: space-between;
   position: relative;
@@ -66,7 +66,7 @@ body {
   display: flex;
   flex-direction: column;
   background: black;
-  border-left: 1px solid white;
+  border: 1px solid #ffffff;
 }
 
 .logo_container {
@@ -312,7 +312,9 @@ body {
   margin: 30px 40px 40px 40px;
   border-radius: 15px;
   background: black;
-  border: 1px solid white;
+  box-shadow: -7px 8px 38px -6px rgba(74,74,74,0.75);
+  -webkit-box-shadow: -7px 8px 38px -6px rgba(74,74,74,0.75);
+  -moz-box-shadow: -7px 8px 38px -6px rgba(74,74,74,0.75);
   /* background-image: url('../utils/images/logovch.png'); */
 }
 
@@ -501,6 +503,9 @@ body {
 
 .display_none {
   display: none;
+}
+.visibility_hidden {
+  visibility: hidden;
 }
 
 @media screen and (max-width: 860px) {
