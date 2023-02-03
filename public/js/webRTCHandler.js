@@ -14,10 +14,9 @@ const defaultConstraints = {
 
 const configuration = {
   iceServers: [
-    {
-      urls: "stun:stun.l.google.com:13902",
-    },
-  ],
+    {url: 'stun:stun1.l.google.com:19302'}, 
+    {url: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com'}
+]
 };
 
 export const getLocalPreview = () => {

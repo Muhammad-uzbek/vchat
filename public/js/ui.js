@@ -17,6 +17,14 @@ export const updateLocalVideo = (stream) => {
   });
 };
 
+export const updateStrangersAmount = (strangersAmount) => {
+  const strangersAmountParagraph = document.getElementById(
+    "strangers_amount_paragraph"
+  );
+  strangersAmountParagraph.innerHTML = strangersAmount;
+};
+
+
 export const showVideoCallButtons = () => {
   const personalCodeVideoButton = document.getElementById(
     "personal_code_video_button"
@@ -75,7 +83,7 @@ export const showNoStrangerAvailableDiolog = () => {
 
     setTimeout(() => {
       removeAllDialogs();
-    }, [4000]);
+    }, [1500]);
   }
 }
 
@@ -109,7 +117,7 @@ export const showInfoDialog = (preOfferAnswer) => {
 
     setTimeout(() => {
       removeAllDialogs();
-    }, [4000]);
+    }, [1500]);
   }
 };
 

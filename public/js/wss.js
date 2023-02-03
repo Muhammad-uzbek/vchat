@@ -46,6 +46,9 @@ export const registerSocketEvents = (socket) => {
   socket.on("stranger-socket-id", (data) => {
     strangerUtils.connectWithStranger(data);
   })
+  socket.on("strangersamount", (data) => {
+    ui.updateStrangersAmount(data);
+  });
 };
 
 export const sendPreOffer = (data) => {
@@ -67,6 +70,11 @@ export const sendUserHangedUp = (data) => {
 
 export const changeStrangerConnectionStatus = (data) => {
   socketIO.emit("stranger-connection-status", data);
+};
+
+export const getAllUsersCount = (data) => {
+  socketIO.emit("strangersamount", data);
+  console.log("getall ", data);
 };
 
 export const getStrangerSocketId = () => {

@@ -3,6 +3,7 @@
         <title>Videochat</title>
         <link rel='stylesheet' href='./css/style.css'>
         <meta content="width = device-width, initial-scale=1", name="viewport"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body>
         <div class='main_container'>
@@ -17,6 +18,13 @@
                     </p>
                 </div>
                 <div class='personal_code_container'>
+                    <div class="personal_code_title_container">
+                        <p class="personal_code_connecting_paragraph strangers_amount">
+                            <i class="fa-regular fa-user"></i>
+                            <span id="strangers_amount_paragraph">0</span>
+                        </p>
+                    </div>
+                    
                     <div class='personal_code_title_container'>
                         <p class='personal_code_title_paragraph'>
                            Kodingiz:
@@ -25,16 +33,16 @@
                     <div class="personal_code_value_container">
                         <p class='personal_code_value_paragraph' id='personal_code_paragraph'>DDDDDD</p>
                         <button class='personal_code_copy_button' id='personal_code_copy_button'>
-                            <img src='./utils/images/copyButton.png'></img>
+                            <i class="fa-solid fa-copy"></i>
                         </button>
                     </div>
                 </div>
                 </div>
                 <div class='personal_code_connecting_container'>
                     <p class='personal_code_connecting_paragraph'>Personal Code</p>
-                    <div class='personal_code_connecting_input_container'>
+                    <!-- <div class='personal_code_connecting_input_container'>
                         <input class='personal_code_input' id='personal_code_input'></input>
-                    </div>
+                    </div> -->
                     <div class='personal_code_connecting_buttons_container'>
                         <button class='connecting_button' id='personal_code_chat_button'>
                             <img src='./utils/images/chatButton.png' class='connecting_buttons_image'></img>
@@ -49,10 +57,12 @@
                     <div class='stranger_buttons_container'>
                         <button class='connecting_button' id='stranger_chat_button'>
                             <!-- <img src='/utils/images/chatButton.png' class='connecting_buttons_image'></img> -->
+                            <i class="fa-solid fa-message"></i>
                             Chat
                         </button>
                         <button class='connecting_button display_none' id='stranger_video_button'>
                             <!-- <img src='/utils/images/videoButton.png' class='connecting_buttons_image'></img> -->
+                            <i class="fa-solid fa-video"></i>
                             Videochat
                         </button>
                     </div>
@@ -77,18 +87,22 @@
                     <video class='local_video' id='local_video'  autoplay></video>
                 </div>
                 <div class='call_buttons_container display_none' id='call_buttons'>
+                    <button class='call_button_small' id='hang_up_button'>
+                        <img src='./utils/images/hangUp.png'></img>
+                    </button>
                     <button class='call_button_small' id='mic_button'>
                         <img src='./utils/images/mic.png' id='mic_button_image'></img>
+                    </button>
+                    <button class='call_button_large' id='next_button'>
+                        <i class="fa-solid fa-forward"></i>
                     </button>
                     <button class='call_button_small' id='camera_button'>
                         <img src='./utils/images/camera.png' id='camera_button_image'></img>
                     </button>
-                    <button class='call_button_large' id='hang_up_button'>
-                        <img src='./utils/images/hangUp.png'></img>
-                    </button>
-                    <button class='call_button_small' id='screen_sharing_button'>
+                   
+                    <!-- <button class='call_button_small' id='screen_sharing_button'>
                         <img src='./utils/images/switchCameraScreenSharing.png'></img>
-                    </button>
+                    </button> -->
                     <button class='call_button_small' id='start_recording_button'>
                         <img src='./utils/images/recordingStart.png'></img>
                     </button>
@@ -121,6 +135,9 @@
             </div>
         </div>
         <div id='dialog'></div>    
+        <div class="register-dialog" id="register-dialog">
+            
+        </div>
         </div>
         <script src='/socket.io/socket.io.js'></script>
         <script src='./js/elements.js' type='module'></script>

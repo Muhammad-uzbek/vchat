@@ -96,13 +96,13 @@ cameraButton.addEventListener("click", () => {
   ui.updateCameraButton(cameraEnabled);
 });
 
-const switchForScreenSharingButton = document.getElementById(
-  "screen_sharing_button"
-);
-switchForScreenSharingButton.addEventListener("click", () => {
-  const screenSharingActive = store.getState().screenSharingActive;
-  webRTCHandler.switchBetweenCameraAndScreenSharing(screenSharingActive);
-});
+// const switchForScreenSharingButton = document.getElementById(
+//   "screen_sharing_button"
+// );
+// switchForScreenSharingButton.addEventListener("click", () => {
+//   const screenSharingActive = store.getState().screenSharingActive;
+//   webRTCHandler.switchBetweenCameraAndScreenSharing(screenSharingActive);
+// });
 
 // messenger
 
@@ -119,14 +119,15 @@ newMessageInput.addEventListener("keydown", (event) => {
 });
 
 const sendMessageButton = document.getElementById("send_message_button");
-sendMessageButton.addEventListener("click", () => {
+sendMessageButton.addEventListener("click", () =>{
+  console.log("send message button clicked");
   const message = newMessageInput.value;
+  console.log(message);
+  // if(!message) return;
   webRTCHandler.sendMessageUsingDataChannel(message);
   ui.appendMessage(message, true);
   newMessageInput.value = "";
 });
-
-// recording
 
 const startRecordingButton = document.getElementById("start_recording_button");
 startRecordingButton.addEventListener("click", () => {
@@ -158,7 +159,11 @@ const hangUpButton = document.getElementById("hang_up_button");
 hangUpButton.addEventListener("click", () => {
   webRTCHandler.handleHangUp();
 });
-
+const nextButton = document.getElementById("next_button");
+nextButton.addEventListener("click", () => {
+  webRTCHandler.handleHangUp();
+  strangerUtils.getStrangerSocketIdAndConnect(constants.callType.VIDEO_STRANGER);
+});
 const hangUpChatButton = document.getElementById("finish_chat_call_button");
 hangUpChatButton.addEventListener("click", () => {
   webRTCHandler.handleHangUp();

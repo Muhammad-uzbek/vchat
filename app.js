@@ -10,6 +10,7 @@ const io = require("socket.io")(server);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
+  console.log("get request", req);
   res.sendFile(__dirname + "/public/index.html");
 });
 
@@ -92,6 +93,9 @@ io.on("connection", (socket) => {
     }
 
     console.log(connectedPeersStrangers)
+    // send length of connectedPeersStrangers to all connected peers
+    io.emit("strangersamount", connectedPeersStrangers.length);
+    console.log(connectedPeersStrangers.length);
   });
 
   socket.on("get-stranger-socket-id", () => {

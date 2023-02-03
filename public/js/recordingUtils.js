@@ -46,6 +46,7 @@ const downloadRecordedVideo = () => {
   window.URL.revokeObjectURL(url);
 };
 
+
 const handleDataAvailable = (event) => {
   if (event.data.size > 0) {
     recordedChunks.push(event.data);
