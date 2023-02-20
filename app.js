@@ -1,11 +1,14 @@
-const express = require("express");
-const http = require("http");
-
+import express from "express";
+import { createServer } from "http";
+import apiRouter from "./public/api/register.js";
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-const server = http.createServer(app);
-const io = require("socket.io")(server);
+const server = createServer(app);
+//const io = require("socket.io")(server);
+// write this import statement
+import { Server } from "socket.io";
+const io = new Server(server);
 
 app.use(express.static("public"));
 
@@ -14,14 +17,14 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
+app.use("/api", apiRouter);
+
 let connectedPeers = [];
 let connectedPeersStrangers = [];
 
 io.on("connection", (socket) => {
   connectedPeers.push(socket.id);
-
   socket.on("pre-offer", (data) => {
-    console.log("pre-offer-came");
     const { calleePersonalCode, callType } = data;
     console.log(calleePersonalCode);
     console.log(connectedPeers);
@@ -46,8 +49,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("pre-offer-answer", (data) => {
-    const { callerSocketId } = data;
-
+    const { callerSocketId, filter } = data;
+    console.log("pre-offer-filter");
     const connectedPeer = connectedPeers.find(
       (peerSocketId) => peerSocketId === callerSocketId
     );
@@ -121,12 +124,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
-
     const newConnectedPeers = connectedPeers.filter(
       (peerSocketId) => peerSocketId !== socket.id
     );
-
     connectedPeers = newConnectedPeers;
     //console.log(connectedPeers);
 

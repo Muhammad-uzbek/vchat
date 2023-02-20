@@ -5,6 +5,7 @@ import * as constants from "./constants.js";
 import * as ui from "./ui.js";
 import * as recordingUtils from "./recordingUtils.js";
 import * as strangerUtils from "./strangerUtils.js";
+import * as elements from "./elements.js";
 
 // initialization of socketIO connection
 const socket = io("/");
@@ -53,11 +54,11 @@ personalCodeVideoButton.addEventListener("click", () => {
   webRTCHandler.sendPreOffer(callType, calleePersonalCode);
 });
 
-const strangerChatButton = document.getElementById("stranger_chat_button");
-strangerChatButton.addEventListener("click", () => {
-  // logic
-  strangerUtils.getStrangerSocketIdAndConnect(constants.callType.CHAT_STRANGER);
-});
+// const strangerChatButton = document.getElementById("stranger_chat_button");
+// strangerChatButton.addEventListener("click", () => {
+//   // logic
+//   strangerUtils.getStrangerSocketIdAndConnect(constants.callType.CHAT_STRANGER);
+// });
 
 const strangerVideoButton = document.getElementById("stranger_video_button");
 strangerVideoButton.addEventListener("click", () => {
@@ -160,11 +161,50 @@ hangUpButton.addEventListener("click", () => {
   webRTCHandler.handleHangUp();
 });
 const nextButton = document.getElementById("next_button");
-nextButton.addEventListener("click", () => {
-  webRTCHandler.handleHangUp();
-  strangerUtils.getStrangerSocketIdAndConnect(constants.callType.VIDEO_STRANGER);
+nextButton.addEventListener("click", next);
+
+function next(){
+  if(localStorage.getItem("strangersamount") < 3){
+    const infoDialog = elements.getInfoDialog(
+      "Tarmoqda boshqa suhbatdosh yo'q", 
+      "Keyinroq urunib ko'ring."
+    );
+  
+    if (infoDialog) {
+      const dialog = document.getElementById("dialog");
+      dialog.appendChild(infoDialog);
+      setTimeout(() => {
+        const dialog = document.getElementById("dialog");
+        dialog.querySelectorAll("*").forEach((dialog) => dialog.remove());
+      }, [1500]);
+    }
+  }
+  else{
+    webRTCHandler.handleHangUp();
+    strangerUtils.getStrangerSocketIdAndConnect(constants.callType.VIDEO_STRANGER);
+  }
+}
+// work next function when click on next key in keyboard
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+  if (key === "ArrowRight") {
+    next();
+  }
 });
+
 const hangUpChatButton = document.getElementById("finish_chat_call_button");
 hangUpChatButton.addEventListener("click", () => {
   webRTCHandler.handleHangUp();
 });
+
+// filters
+
+const filters = document.getElementsByClassName("filter-el");
+// console log the id of the filter that was clicked
+for (let i = 0; i < filters.length; i++) {
+  filters[i].addEventListener("click", () => {
+    ui.updateFilter(filters[i].id);
+    // send filter id to the other peer
+    webRTCHandler.sendFilter(filters[i].id);
+  });
+}

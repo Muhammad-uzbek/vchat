@@ -2,6 +2,8 @@ import * as wss from "./wss.js";
 import * as constants from "./constants.js";
 import * as ui from "./ui.js";
 import * as store from "./store.js";
+// import json file
+import * as filters from "./filters.js";
 
 let connectedUserDetails;
 let peerConection;
@@ -14,7 +16,7 @@ const defaultConstraints = {
 
 const configuration = {
   iceServers: [
-    {
+   {
       urls: "stun:stun.l.google.com:13902",
     }
 ]
@@ -48,14 +50,21 @@ const createPeerConnection = () => {
     };
 
     dataChannel.onmessage = (event) => {
-      console.log("message came from data channel");
+      console.log("message came from data channel", event.data);
       const message = JSON.parse(event.data);
-      ui.appendMessage(message);
+      // if event data is one of the filters
+      if(filters.allFilters.find(filter => filter === message.filter)){
+        console.log("filter found", message);
+        ui.updatePeerFilter(message.filter);
+      }
+      else{
+        ui.appendMessage(message);
+      }
     };
   };
 
   peerConection.onicecandidate = (event) => {
-    console.log("geeting ice candidates from stun server");
+    
     if (event.candidate) {
       // send our ice candidates to other peer
       wss.sendDataUsingWebRTCSignaling({
@@ -69,6 +78,7 @@ const createPeerConnection = () => {
   peerConection.onconnectionstatechange = (event) => {
     if (peerConection.connectionState === "connected") {
       console.log("succesfully connected with other peer");
+      localStorage.setItem("connectedUserDetails", JSON.stringify(connectedUserDetails));
     }
   };
 
@@ -104,6 +114,7 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
   connectedUserDetails = {
     callType,
     socketId: calleePersonalCode,
+    filter: ui.filterData(),
   };
 
   if (
@@ -113,6 +124,7 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
     const data = {
       callType,
       calleePersonalCode,
+      filter: ui.filterData(),
     };
     ui.showCallingDialog(callingDialogRejectCallHandler);
     store.setCallState(constants.callState.CALL_UNAVAILABLE);
@@ -126,15 +138,26 @@ export const sendPreOffer = (callType, calleePersonalCode) => {
     const data = {
       callType,
       calleePersonalCode,
+      filter: ui.filterData(),
     };
     store.setCallState(constants.callState.CALL_UNAVAILABLE);
     wss.sendPreOffer(data);
   }
 };
 
-export const handlePreOffer = (data) => {
-  const { callType, callerSocketId } = data;
+export const sendFilter = (filter) => {
+  const data = {
+    filter: filter
+  };
+  if (dataChannel.readyState === "open") {
+    dataChannel.send(JSON.stringify(data));
+  }
+  // dataChannel.send(JSON.stringify(data));
+};  
 
+export const handlePreOffer = (data) => {
+  const { callType, callerSocketId, filter } = data;
+  console.log("^^>>",filter);
   if (!checkCallPossibility()) {
     return sendPreOfferAnswer(constants.preOfferAnswer.CALL_UNAVAILABLE, callerSocketId)
   }
@@ -184,6 +207,7 @@ const callingDialogRejectCallHandler = () => {
   }
   closePeerConnectionAndResetState();
   wss.sendUserHangedUp(data);
+  console.log("call rejected");
 };
 
 const sendPreOfferAnswer = (preOfferAnswer, callerSocketId = null) => {
@@ -193,6 +217,7 @@ const sendPreOfferAnswer = (preOfferAnswer, callerSocketId = null) => {
   const data = {
     callerSocketId: socketId,
     preOfferAnswer,
+    filter: ui.filterData(),
   };
   ui.removeAllDialogs();
   wss.sendPreOfferAnswer(data);
@@ -251,6 +276,7 @@ export const handleWebRTCOffer = async (data) => {
 
 export const handleWebRTCAnswer = async (data) => {
   console.log("handling webRTC Answer");
+  console.log(data);
   await peerConection.setRemoteDescription(data.answer);
 };
 
@@ -336,7 +362,7 @@ export const handleHangUp = () => {
   }
 
   wss.sendUserHangedUp(data);
-  closePeerConnectionAndResetState();
+  //closePeerConnectionAndResetState();
 };
 
 export const handleConnectedUserHangedUp = () => {

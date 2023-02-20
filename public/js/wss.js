@@ -16,6 +16,7 @@ export const registerSocketEvents = (socket) => {
   });
 
   socket.on("pre-offer", (data) => {
+    console.log("pre-offer >>>", data);
     webRTCHandler.handlePreOffer(data);
   });
 
@@ -44,15 +45,16 @@ export const registerSocketEvents = (socket) => {
   });
 
   socket.on("stranger-socket-id", (data) => {
+    console.log("stranger-socket-id >>>", data);
     strangerUtils.connectWithStranger(data);
   })
   socket.on("strangersamount", (data) => {
     ui.updateStrangersAmount(data);
+    localStorage.setItem("strangersamount", data);
   });
 };
 
 export const sendPreOffer = (data) => {
-  console.log("emmiting to server pre offer event");
   socketIO.emit("pre-offer", data);
 };
 

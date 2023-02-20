@@ -34,6 +34,9 @@ export const showVideoCallButtons = () => {
   showElement(personalCodeVideoButton);
   showElement(strangerVideoButton)
 }
+export const filterData = () => {
+  return localStorage.getItem('filterName') || 'none';
+}
 
 export const updateRemoteVideo = (stream) => {
   const remoteVideo = document.getElementById("remote_video");
@@ -309,3 +312,14 @@ const showElement = (element) => {
   }
 };
 
+// filters
+export const updateFilter = (filter) => {
+  const video = document.getElementById("local_video");
+  video.className = filter;
+  localStorage.setItem("filterName", filter);
+};
+
+export const updatePeerFilter = (filter) => {
+  const video = document.getElementById("remote_video");
+  video.className = filter;
+}
