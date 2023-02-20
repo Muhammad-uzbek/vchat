@@ -684,7 +684,12 @@ body {
     box-shadow: none;
     margin: 0;
   }
-  
+  .local_video_container{
+    width: 110px;
+  }
+  .register-dialog{
+    width: 80%;
+  }
 }
 .filters-box{
   width: 100%;
