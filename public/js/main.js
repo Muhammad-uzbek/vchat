@@ -66,6 +66,15 @@ strangerVideoButton.addEventListener("click", () => {
   strangerUtils.getStrangerSocketIdAndConnect(constants.callType.VIDEO_STRANGER);
 });
 
+// write  function that works when peer connection is ended, this function connects to other peer
+// const peerConnectionEnded = () => {
+//   const callType = store.getState().callType;
+//   if (callType === constants.callType.VIDEO_STRANGER) {
+//     strangerUtils.getStrangerSocketIdAndConnect(callType);
+//   }
+// };
+
+
 // make it allow to connect from strangers by default
 strangerUtils.changeStrangerConnectionStatus(true);
 
@@ -77,7 +86,11 @@ checkbox.addEventListener("click", () => {
   store.setAllowConnectionsFromStrangers(!checkboxState);
   strangerUtils.changeStrangerConnectionStatus(!checkboxState);
 });
+// a function that gets stranger socket id and saves it in the store as an array
+const saveSocketId = (data) => {
+  store.setStrangerSocketId(store.getState().strangerSocketId.push(data));
 
+};
 
 // event listeners for video call buttons
 

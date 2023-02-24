@@ -19,7 +19,7 @@ const configuration = {
    {
       urls: "stun:stun.l.google.com:13902",
     }
-]
+  ],
 };
 
 export const getLocalPreview = () => {
@@ -365,8 +365,8 @@ export const handleHangUp = () => {
   //closePeerConnectionAndResetState();
 };
 
+// write a function to 
 export const handleConnectedUserHangedUp = () => {
-  //console.log('connected peer hanged up');
   closePeerConnectionAndResetState();
 };
 
