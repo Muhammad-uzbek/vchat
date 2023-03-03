@@ -16,6 +16,11 @@ const defaultConstraints = {
 
 const configuration = {
   iceServers: [
+    {
+      urls: "turn:openrelay.metered.ca:443",
+      username: "openrelayproject",
+      credential: "openrelayproject",
+    },
    {
       urls: "stun:stun.l.google.com:13902",
     }
@@ -149,7 +154,7 @@ export const sendFilter = (filter) => {
   const data = {
     filter: filter
   };
-  if (dataChannel.readyState === "open") {
+  if (dataChannel && dataChannel.readyState === "open") {
     dataChannel.send(JSON.stringify(data));
   }
   // dataChannel.send(JSON.stringify(data));

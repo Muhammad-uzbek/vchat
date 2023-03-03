@@ -579,7 +579,7 @@ body {
 .dashboard_blur {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 45%;
   left: 0;
   top: 0;
   opacity: 0.2;
@@ -691,9 +691,16 @@ body {
     width: 80% !important;
   }
 }
+@media screen and (min-width:1250px){
+  body{
+    max-height: 100vh;
+    overflow: hidden;
+  }
+}
+
 .filters-box{
   width: 100%;
-  height: 160px;
+  height: 410px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1px 5px;
@@ -709,6 +716,7 @@ body {
   margin: 10px;
   background: #fff;
   border-radius: 10px;
+  padding: 0;
 }
 .filter-el img{
   width: 100%;
@@ -717,11 +725,11 @@ body {
   border-radius: 10px;
 }
 .filter-el.active{
-  border: 2px solid #fff;
+  border: 2px solid #007AFF;
 }
 .filter-el p{
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 100%;
   height: 20px;
@@ -756,6 +764,8 @@ body {
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 2px 20px 5px rgba(10, 145, 219, 0.05);
+  filter: blur(20px);
+  transition: all 0.8s ease;
 }
 .register-dialog h2{
   margin-top: 10%;

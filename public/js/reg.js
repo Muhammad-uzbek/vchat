@@ -1,4 +1,31 @@
-let baseUrl = "http://81.95.228.2:8080/sms_send.php";
+// a function that work very first
+document.addEventListener("DOMContentLoaded", function(){
+    console.log("loaded");
+    let tokenInLocalStorage = localStorage.getItem("tokenvideochat");
+    if(tokenInLocalStorage){
+        fetch("/api/checktoken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({token: tokenInLocalStorage})
+        }).then((res) => res.json()).then((data) => {
+            console.log(data);
+            if(data.msg === "ok"){
+                remove_register();
+            }
+            else{
+                console.log("not ok");
+                document.getElementById("register_dialog").style.filter = "blur(0)";
+
+            }
+        });
+    }
+    else{
+        document.getElementById("register_dialog").style.filter = "blur(0)";
+    }
+});
+
 
 document.getElementById("sendbtn").addEventListener("click", function(){
     var number = document.getElementById("phonenumber").value;
@@ -36,10 +63,13 @@ async function sms_sender(number){
         })
     });
     let login = await login_fetch.json();
+    console.log(login);
     sessionStorage.setItem("code", login.code);
+    localStorage.setItem("tokenvideochat", login.token);
     if(login.msg === "sms"){
         show_sms_input();
     }else if(login.msg === "already registered"){
+        localStorage.setItem("tokenvideochat", login.token);
         remove_register();
     }
 }

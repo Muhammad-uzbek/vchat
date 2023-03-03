@@ -216,8 +216,15 @@ const filters = document.getElementsByClassName("filter-el");
 // console log the id of the filter that was clicked
 for (let i = 0; i < filters.length; i++) {
   filters[i].addEventListener("click", () => {
+    console.log(filters[i].id);
     ui.updateFilter(filters[i].id);
     // send filter id to the other peer
     webRTCHandler.sendFilter(filters[i].id);
+    // apply border to the filter that was clicked
+    // remove border from the other filters
+    for (let i = 0; i < filters.length; i++) {
+      document.getElementById(filters[i].id).style.border = "none";
+    }
+    document.getElementById(filters[i].id).style.border = "2px solid #007AFF";
   });
 }
