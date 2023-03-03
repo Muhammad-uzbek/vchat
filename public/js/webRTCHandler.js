@@ -16,11 +16,6 @@ const defaultConstraints = {
 
 const configuration = {
   iceServers: [
-    {
-      urls: "turn:openrelay.metered.ca:443",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
    {
       urls: "stun:stun.l.google.com:13902",
     }
