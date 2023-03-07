@@ -6,5 +6,5 @@ export const allFilters =[
     "inkwell",
     "lofi",
     "toaster",
-    "valencia",
+    "valencia"
 ]

@@ -32,7 +32,6 @@ io.on("connection", (socket) => {
       (peerSocketId) => peerSocketId === calleePersonalCode
     );
 
-    console.log(connectedPeer);
 
     if (connectedPeer) {
       const data = {
@@ -78,7 +77,6 @@ io.on("connection", (socket) => {
     const connectedPeer = connectedPeers.find(
       (peerSocketId) => peerSocketId === connectedUserSocketId
     );
-
     if (connectedPeer) {
       io.to(connectedUserSocketId).emit("user-hanged-up");
     }

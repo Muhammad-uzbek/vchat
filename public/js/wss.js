@@ -70,6 +70,7 @@ export const sendUserHangedUp = (data) => {
   socketIO.emit("user-hanged-up", data);
 };
 
+
 export const changeStrangerConnectionStatus = (data) => {
   socketIO.emit("stranger-connection-status", data);
 };
